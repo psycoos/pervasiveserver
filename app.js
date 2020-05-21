@@ -31,7 +31,7 @@ app.get('/test', (req, res) => {
 
 app.get('/home', (request, response) => {
   response.render('home', {
-    name: 'you filthy animal... I\'ve been expecting you...'
+    name: 'World! Bald Eagle is landing.'
   })
 })
 
