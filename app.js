@@ -17,6 +17,10 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 
+app.get('/', (req, res) => {
+  res.redirect('/home');
+})
+
 // get all todos
 app.get('/test', (req, res) => {
   res.status(200).send({
@@ -27,12 +31,12 @@ app.get('/test', (req, res) => {
 
 app.get('/home', (request, response) => {
   response.render('home', {
-    name: 'C. Pot... I\'ve been expecting you...'
+    name: 'you filthy animal... I\'ve been expecting you...'
   })
 })
 
 app.listen(PORT, () => {
-  console.log(`Listening on ${ PORT }`)
+  console.log(`Listening on ${PORT}`)
 });
 
 module.exports = app;
