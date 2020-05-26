@@ -23,21 +23,39 @@
         crossorigin="anonymous"></script>
 
     <script src="socket.io/socket.io.js"></script>
+    <style>
+        #vl {
+            border-left: 10px solid black;
+            height: 100%;
+            position: absolute;
+            /* left: 25%; */
+            margin-left: -3px;
+            top: 0;
+        }
+
+        body {
+            background: #228B22;
+            background: linear-gradient(to right, #228B22, #B22222);
+        }
+    </style>
+
+
     <title>Hello, world!</title>
 </head>
 
 <body>
     <h2>Waiting for data...</h2>
     <div id="data">
-
+        <div id="vl"></div>
     </div>
     <script>
         var socket = io();
 
         socket.on('sensed_data', addData)
 
-        function addData(data) {
-            $("#data").append(`<h4> ${data.test} </h4>`)
+        function addData(value) {
+            console.log(value);
+            $("#vl").css({ "left": value })
         }
     </script>
 </body>

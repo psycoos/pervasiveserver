@@ -19,7 +19,7 @@ io.on('connection', () => {
 })
 
 app.post('/send_data', (req, res) => {
-  io.emit('sensed_data', req.body);
+  io.emit('sensed_data', req.body.value);
   res.sendStatus(200);
 })
 
