@@ -1,42 +1,28 @@
-var createError = require('http-errors');
-var cookieParser = require('cookie-parser');
-
 var express = require('express');
 var path = require('path');
-const exphbs = require('express-handlebars')
+var bodyParser = require('body-parser');
+var createError = require('http-errors');
 
-var app = express();
+const app = require('express')();
+
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 const PORT = process.env.PORT || 5000;
 
-app.engine('.hbs', exphbs({
-  defaultLayout: 'main',
-  extname: '.hbs',
-  layoutsDir: path.join(__dirname, 'views/layouts')
-}))
-app.set('view engine', '.hbs')
-app.set('views', path.join(__dirname, 'views'))
+app.use(express.static(path.join(__dirname, 'views')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.redirect('/home');
+io.on('connection', () => {
+  console.log('a user is connected');
 })
 
-// get all todos
-app.get('/test', (req, res) => {
-  res.status(200).send({
-    success: 'true',
-    data: 'this was a successful test!'
-  })
-});
-
-app.get('/home', (request, response) => {
-  response.render('home', {
-    name: 'World! Bald Eagle is landing.'
-  })
+app.post('/send_data', (req, res) => {
+  io.emit('sensed_data', req.body);
+  res.sendStatus(200);
 })
 
-app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`)
+server.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
 });
-
-module.exports = app;
