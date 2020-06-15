@@ -1,28 +1,23 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var createError = require('http-errors');
-
 const app = require('express')();
-
-const server = require('http').createServer(app);
+const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
-const PORT = process.env.PORT || 5000;
+server.listen(5000);
+// WARNING: app.listen(80) will NOT work here!
 
-app.use(express.static(path.join(__dirname, 'views')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/views/index.html');
+});
 
-io.on('connection', () => {
-  console.log('a user is connected');
+app.get('/dashboard', (req, res) => {
+  res.sendFile(__dirname + '/views/dashboard.html');
 })
+var srvSockets = io.sockets.sockets;
+console.log(Object.keys(srvSockets).length);
 
-app.post('/send_data', (req, res) => {
-  io.emit('sensed_data', req.body.value);
-  res.sendStatus(200);
-})
-
-server.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
+io.on('connection', (socket) => {
+  console.log(Object.keys(srvSockets).length);
+  socket.on('data', (data) => {
+    console.log(data);
+  });
 });
