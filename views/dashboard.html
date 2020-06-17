@@ -49,7 +49,7 @@
     <script>
         var socket = io();
 
-        socket.on('data', addData)
+        socket.on('percentage', addData)
 
         function addData(value) {
             $("#vl").animate({

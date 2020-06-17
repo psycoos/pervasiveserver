@@ -15,9 +15,36 @@ app.get('/dashboard', (req, res) => {
 var srvSockets = io.sockets.sockets;
 console.log(Object.keys(srvSockets).length);
 
+data_list = [];
+
+function computeAndClear(list){
+  all = list.length;
+  count = list.length - list.sort().indexOf('1');
+  not_distracted = (count/all)*100;
+  console.log(not_distracted, '%');
+  data_list = [];
+  console.log(data_list)
+  io.emit('percentage', `${not_distracted}%`)
+}
+
+function populateArray(data){
+  console.log(data);
+  data_list.push(data.value);
+  console.log(data_list)
+}
+setInterval(() => computeAndClear(data_list), 10000);
+
 io.on('connection', (socket) => {
   console.log(Object.keys(srvSockets).length);
   socket.on('data', (data) => {
-    console.log(data);
+    // console.log(data);
+    populateArray(data);
   });
+
+  socket.on('face', (face_data) => {
+    populateArray(face_data);
+  })
+  socket.on('face', (phone_data) => {
+    populateArray(phone_data);
+  })
 });
