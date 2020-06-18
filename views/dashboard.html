@@ -12,7 +12,8 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
@@ -26,17 +27,12 @@
             border-left: 10px solid black;
             height: 100%;
             position: absolute;
-            /* left: 25%; */
             margin-left: -3px;
             top: 0;
         }
 
-        #client_count {
-            position: fixed;
-            bottom: 0;
-            right: 0;
-            width: 300px;
-            border: 3px solid #73AD21;
+        .col-md-auto.align-self-end{
+            border: 3px solid black;            
         }
 
         body {
@@ -57,12 +53,21 @@
     <script>
         var socket = io();
 
-        socket.on('percentage', addData)
+        socket.on('percentage', addData);
 
-
-        socket.on('client_count', function(data) {
+        socket.on('client_count', function (data) {
             $('#client_count').html(data);
-            console.log('client count', data)
+            console.log('client count', data);
+        });
+
+        socket.on('pc_count', function (data) {
+            $('#pc_count').html(data);
+            console.log('pc count', data);
+        });
+
+        socket.on('phone_count', function (data) {
+            $('#phone_count').html(data);
+            console.log('phone count', data);
         });
 
         function addData(value) {
@@ -72,7 +77,18 @@
         }
 
     </script>
-    <div id="client_count"></div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto align-self-end">Total Clients: <span id="client_count">0</span>
+            </div>
+            <div class="col-md-auto align-self-end">Total PCs: <span id="pc_count">0</span>
+            </div>
+            <div class="col-md-auto align-self-end">Total Phones: <span id="phone_count">0</span>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>
