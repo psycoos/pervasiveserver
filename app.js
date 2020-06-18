@@ -13,8 +13,6 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(__dirname + '/views/dashboard.html');
 })
 
-// io.emit('client_count', srvSockets)
-
 data_list = [];
 phone_users_list = [];
 pc_users_list = [];
@@ -22,8 +20,6 @@ pc_users_list = [];
 function computeAndClear(list) {
   all = list.length;
   count = 0;
-  // count = list.length - list.sort().indexOf(1);
-  // maybe keep it simple because javascript? test this pl0x
   list.forEach(el => {
     if (el == 1) count++;
   });
