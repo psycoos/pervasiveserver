@@ -31,6 +31,14 @@
             top: 0;
         }
 
+        #client_count {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 300px;
+            border: 3px solid #73AD21;
+        }
+
         body {
             background: #228B22;
             background: linear-gradient(to right, #228B22, #B22222);
@@ -51,7 +59,11 @@
 
         socket.on('percentage', addData)
 
-        socket.on('client_count', counter)
+
+        socket.on('client_count', function(data) {
+            $('#client_count').html(data);
+            console.log('client count', data)
+        });
 
         function addData(value) {
             $("#vl").animate({
@@ -60,7 +72,7 @@
         }
 
     </script>
-    <div id="counter"></div>
+    <div id="client_count"></div>
 </body>
 
 </html>

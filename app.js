@@ -13,7 +13,7 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(__dirname + '/views/dashboard.html');
 })
 var srvSockets = io.sockets.sockets;
-io.emit('client_count', srvSockets)
+// io.emit('client_count', srvSockets)
 
 data_list = [];
 
@@ -35,7 +35,7 @@ function populateArray(data){
 setInterval(() => computeAndClear(data_list), 10000);
 
 io.on('connection', (socket) => {
-  console.log(Object.keys(srvSockets).length);
+  io.emit('client_count', Object.keys(srvSockets).length);
   socket.on('data', (data) => {
     console.log('this is data', data);
     populateArray(data);
