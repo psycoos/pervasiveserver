@@ -51,12 +51,16 @@
 
         socket.on('percentage', addData)
 
+        socket.on('client_count', counter)
+
         function addData(value) {
             $("#vl").animate({
                 left: value
             });
         }
+
     </script>
+    <div id="counter"></div>
 </body>
 
 </html>

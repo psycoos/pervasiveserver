@@ -13,7 +13,7 @@ app.get('/dashboard', (req, res) => {
   res.sendFile(__dirname + '/views/dashboard.html');
 })
 var srvSockets = io.sockets.sockets;
-console.log(Object.keys(srvSockets).length);
+io.emit('client_count', srvSockets)
 
 data_list = [];
 
@@ -43,8 +43,11 @@ io.on('connection', (socket) => {
 
   socket.on('face', (face_data) => {
     populateArray(face_data);
-  })
-  socket.on('face', (phone_data) => {
-    populateArray(phone_data);
-  })
+  });
+  socket.on('microphone', (mic_data) => {
+    populateArray(mic_data);
+  });
+  socket.on('accelerometer', (acc_data) => {
+    populateArray(acc_data);
+  });
 });
