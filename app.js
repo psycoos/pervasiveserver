@@ -19,17 +19,17 @@ data_list = [];
 
 function computeAndClear(list){
   all = list.length;
-  count = list.length - list.sort().indexOf('1');
-  not_distracted = (count/all)*100;
-  console.log(not_distracted, '%');
+  count = list.length - list.sort().indexOf(1);
+  distracted = (count/all)*100;
+  console.log(distracted, '%');
   data_list = [];
   console.log(data_list)
-  io.emit('percentage', `${not_distracted}%`)
+  io.emit('percentage', `${distracted}%`)
 }
 
 function populateArray(data){
   console.log(data);
-  data_list.push(data.value);
+  data_list.push(data);
   console.log(data_list)
 }
 setInterval(() => computeAndClear(data_list), 10000);
@@ -37,7 +37,7 @@ setInterval(() => computeAndClear(data_list), 10000);
 io.on('connection', (socket) => {
   console.log(Object.keys(srvSockets).length);
   socket.on('data', (data) => {
-    // console.log(data);
+    console.log('this is data', data);
     populateArray(data);
   });
 
