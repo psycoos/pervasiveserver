@@ -57,29 +57,21 @@
 
         socket.on('client_count', function (data) {
             $('#client_count').html(data);
-            console.log('client count', data);
         });
 
         socket.on('pc_count', function (data) {
             $('#pc_count').html(data);
-            console.log('pc count', data);
         });
 
         socket.on('phone_count', function (data) {
             $('#phone_count').html(data);
-            console.log('phone count', data);
         });
 
         function addData(value) {
-            if (value == '100%'){
-                $("#vl").animate({
-                    right: '0%',
-                });
-            }else{
-                $("#vl").animate({
-                    left: value,
-                });
-            }
+            $('#distracted_pct').html(value);
+            $("#vl").animate({
+                left: value,
+            });
         }
 
     </script>
@@ -90,6 +82,8 @@
             <div class="col-md-auto align-self-end">Total PCs: <span id="pc_count">0</span>
             </div>
             <div class="col-md-auto align-self-end">Total Phones: <span id="phone_count">0</span>
+            </div>
+            <div class="col-md-auto align-self-end">Distracted: <span id="distracted_pct">0%</span>
             </div>
         </div>
     </div>
