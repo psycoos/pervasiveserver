@@ -24,15 +24,15 @@
     <script src="socket.io/socket.io.js"></script>
     <style>
         #vl {
-            border-left: 10px solid black;
+            border-left: 10px solid white;
             height: 100%;
             position: absolute;
             margin-left: -3px;
             top: 0;
         }
 
-        .col-md-auto.align-self-end{
-            border: 3px solid black;            
+        .col-md-auto.align-self-end {
+            border: 3px solid black;
         }
 
         body {
@@ -71,9 +71,15 @@
         });
 
         function addData(value) {
-            $("#vl").animate({
-                left: value
-            });
+            if (value == '100%'){
+                $("#vl").animate({
+                    right: '0%',
+                });
+            }else{
+                $("#vl").animate({
+                    left: value,
+                });
+            }
         }
 
     </script>

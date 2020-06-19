@@ -18,12 +18,16 @@ phone_users_list = [];
 pc_users_list = [];
 
 function computeAndClear(list) {
-  all = list.length;
-  count = 0;
-  list.forEach(el => {
-    if (el == 1) count++;
-  });
-  distracted = (count / all) * 100;
+  if (list.length > 0){
+    all = list.length;
+    count = 0;
+    list.forEach(el => {
+      if (el == 1) count++;
+    });
+    distracted = (count / all) * 100;
+  }else{
+    distracted = 100;
+  }
   console.log(distracted, '%');
   data_list = [];
   console.log(data_list)
